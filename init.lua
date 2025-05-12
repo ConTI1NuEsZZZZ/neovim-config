@@ -217,6 +217,7 @@ require("lazy").setup({
             })
         end,
     },
+
     -- 📐 Автоформатер: conform.nvim
     {
         "stevearc/conform.nvim",
@@ -289,6 +290,15 @@ require("lazy").setup({
             require("lspsaga").setup({})
         end,
     },
+
+    -- 🧩 Автодоповнення для парних символів
+    {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup()
+        end,
+    },
+
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
