@@ -30,9 +30,6 @@ vim.opt.smartcase = true
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 
-vim.opt.laststatus = 0
-vim.opt.showmode = false
-
 -- >>> Leader key
 vim.g.mapleader = " "
 
@@ -379,6 +376,107 @@ require("lazy").setup({
             })
         end,
     },
+    
+    {
+        "nvimdev/dashboard-nvim",
+        event = "VimEnter",
+        config = function()
+            local logo = [[
+  ██████ ██▒   █▓ ██▒   █▓▓█████ ▓█████▄▄▄█████▓▓█████▄  ██▀███  ▓█████ ▄▄▄       ███▄ ▄███▓  ██████
+▒██    ▒▓██░   █▒▓██░   █▒▓█   ▀ ▓█   ▀▓  ██▒ ▓▒▒██▀ ██▌▓██ ▒ ██▒▓█   ▀▒████▄    ▓██▒▀█▀ ██▒▒██    ▒
+░ ▓██▄   ▓██  █▒░ ▓██  █▒░▒███   ▒███  ▒ ▓██░ ▒░░██   █▌▓██ ░▄█ ▒▒███  ▒██  ▀█▄  ▓██    ▓██░░ ▓██▄
+  ▒   ██▒ ▒██ █░░  ▒██ █░░▒▓█  ▄ ▒▓█  ▄░ ▓██▓ ░ ░▓█▄   ▌▒██▀▀█▄  ▒▓█  ▄░██▄▄▄▄██ ▒██    ▒██   ▒   ██▒
+▒██████▒▒  ▒▀█░     ▒▀█░  ░▒████▒░▒████▒ ▒██▒ ░ ░▒████▓ ░██▓ ▒██▒░▒████▒▓█   ▓██▒▒██▒   ░██▒▒██████▒▒
+▒ ▒▓▒ ▒ ░  ░ ▐░     ░ ▐░  ░░ ▒░ ░░░ ▒░ ░ ▒ ░░    ▒▒▓  ▒ ░ ▒▓ ░▒▓░░░ ▒░ ░▒▒   ▓▒█░░ ▒░   ░  ░▒ ▒▓▒ ▒ ░
+░ ░▒  ░ ░  ░ ░░     ░ ░░   ░ ░  ░ ░ ░  ░   ░     ░ ▒  ▒   ░▒ ░ ▒░ ░ ░  ░ ▒   ▒▒ ░░  ░      ░░ ░▒  ░ ░
+░  ░  ░      ░░       ░░     ░      ░    ░       ░ ░  ░   ░░   ░    ░    ░   ▒   ░      ░   ░  ░  ░
+      ░       ░        ░     ░  ░   ░  ░           ░       ░        ░  ░     ░  ░       ░         ░
+             ░        ░                          ░
+    ]]
+            logo = string.rep("\n", 2) .. logo .. "\n\n"
+
+            require("dashboard").setup({
+                theme = "hyper",
+                config = {
+                    header = vim.split(logo, "\n"),
+                    shortcut = {
+                        {
+                            icon = "󰒲 ",
+                            icon_hl = "@constant",
+                            desc = "Update Plugins",
+                            group = "@property",
+                            action = "Lazy update",
+                            key = "u",
+                        },
+                        {
+                            icon = " ",
+                            icon_hl = "@variable",
+                            desc = "Find Files",
+                            group = "Label",
+                            action = "Telescope find_files",
+                            key = "f",
+                        },
+                        {
+                            icon = " ",
+                            icon_hl = "@variable",
+                            desc = "Dotfiles",
+                            group = "Label",
+                            action = "Telescope find_files cwd=~/.config",
+                            key = "d",
+                        },
+                        {
+                            icon = " ",
+                            icon_hl = "@string",
+                            desc = "Installed Plugins",
+                            group = "Label",
+                            action = "Lazy",
+                            key = "p",
+                        },
+                        {
+                            icon = " ",
+                            icon_hl = "@function",
+                            desc = "Recently Used Files",
+                            group = "Label",
+                            action = "Telescope oldfiles",
+                            key = "r",
+                        },
+                        {
+                            icon = " ",
+                            icon_hl = "@function",
+                            desc = "Quit Neovim",
+                            group = "Error",
+                            action = "qa",
+                            key = "q",
+                        },
+                    },
+
+                    mru = {
+                        enable = true,
+                        limit = 6,
+                        icon = " ",
+                        label = "Recent Files",
+                        cwd_only = false,
+                    },
+
+                    footer = {
+                        " ",
+                        " ",
+                        "⚰  Welcome to the Abyss",
+                        "  Stay focused. Stay dark.",
+                        "⚠  Configured by ConTI1NuEsZZZ",
+                    },
+                },
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "dashboard",
+                callback = function()
+                    vim.cmd("IBLDisable")
+                end,
+            })
+        end,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    }
 })
 
 vim.opt.signcolumn = "yes:1"
