@@ -247,6 +247,10 @@ require("lazy").setup({
 					{ name = "buffer" },
 					{ name = "path" },
 				}),
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(), -- це додає вікно праворуч
+				},
 			})
 		end,
 	},
@@ -270,22 +274,6 @@ require("lazy").setup({
 			},
 		},
 	},
-
-	-- 🧪 Лінтер: nvim-lint + ruff
-	{
-		"mfussenegger/nvim-lint",
-		config = function()
-			require("lint").linters_by_ft = {
-				python = { "ruff" },
-			}
-			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-				callback = function()
-					require("lint").try_lint()
-				end,
-			})
-		end,
-	},
-
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -314,16 +302,25 @@ require("lazy").setup({
 		end,
 	},
 
-	-- 📦 Lspsaga — покращене LSP UI
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"nvim-treesitter/nvim-treesitter",
+		},
 		config = function()
-			require("lspsaga").setup({})
+			require("lspsaga").setup({
+				ui = {
+					border = "rounded",
+					code_action = "💡",
+				},
+				hover = {
+					max_width = 80,
+				},
+			})
 		end,
 	},
-
 	-- 🧩 Автодоповнення для парних символів
 	{
 		"windwp/nvim-autopairs",
@@ -366,6 +363,26 @@ require("lazy").setup({
 		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
+		end,
+	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+		config = function()
+			require("noice").setup({
+				lsp = {
+					hover = { enabled = true },
+					signature = { enabled = true },
+					message = { enabled = true },
+				},
+				presets = {
+					lsp_doc_border = true,
+				},
+			})
 		end,
 	},
 })
