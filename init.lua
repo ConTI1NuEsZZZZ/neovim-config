@@ -305,7 +305,7 @@ require("lazy").setup({
 			require("lspsaga").setup({
 				ui = {
 					border = "rounded",
-					code_action = "💡",
+					code_action = " ",
 				},
 				hover = {
 					max_width = 80,
@@ -324,6 +324,7 @@ require("lazy").setup({
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		---@module "ibl"
+		---@diagnostic disable-next-line: undefined-doc-name
 		---@type ibl.config
 		opts = {},
 	},
