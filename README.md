@@ -3,6 +3,30 @@
 Welcome to my personal [Neovim](https://neovim.io/) configuration!  
 It’s designed to be fast, modern, and easy to extend. Perfect for coding in Python, Lua, Markdown, and more.
 
+
+---
+
+## Screenshots
+
+### Dashboard
+![Dashboard](/screenshots/Dashboard.png)
+
+### Plugins
+![Plugins](/screenshots/Plugins.png)
+
+### lsp-line
+![lsp-line](/screenshots/lsp-line.png)
+
+### trouble
+![trouble](/screenshots/trouble.png)
+
+### lsp
+![lsp1](/screenshots/lsp1.png)
+![lsp2](/screenshots/lsp2.png)
+
+### term
+![term](/screenshots/term.png)
+
 ---
 
 ##  Features
