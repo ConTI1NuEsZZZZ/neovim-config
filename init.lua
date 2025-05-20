@@ -132,6 +132,7 @@ require("lazy").setup({
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
+				lazy = true,
 			},
 		},
 		config = function()
