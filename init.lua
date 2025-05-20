@@ -127,8 +127,15 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.4",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+			},
+		},
 		config = function()
+			require("telescope").load_extension("fzf")
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
@@ -147,7 +154,7 @@ require("lazy").setup({
 	--  Nvim-treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
+		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = "all",
@@ -160,17 +167,6 @@ require("lazy").setup({
 				},
 			})
 		end,
-	},
-
-	{
-		"sharkdp/fd",
-		run = ":UpdateFd",
-	},
-
-	--  ripgrep
-	{
-		"BurntSushi/ripgrep",
-		run = ":UpdateRipgrep",
 	},
 
 	--  LSP manager
